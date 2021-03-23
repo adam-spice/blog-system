@@ -6,3 +6,8 @@ export const userSignupValidator = [
   check('email').isEmail().withMessage('Must be a valid email address'),
   check('password').isLength({ min: 6 }).withMessage(''),
 ];
+
+export const userSignInValidator = [
+  check('email').isEmail().withMessage('Must be a valid email address'),
+  check('password').isLength({ min: 6 }).withMessage(''),
+];
