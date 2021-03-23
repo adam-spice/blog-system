@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 
 // routes
 import blogRoutes from './routes/blog.js';
+import authRoutes from './routes/auth.js';
 
 // app
 const app = express();
@@ -37,6 +38,7 @@ if (!__PROD__) {
 
 // routes middleware
 app.use('/api', blogRoutes);
+app.use('/api', authRoutes);
 
 app.listen(PORT, () => console.log(`Server listening on ${PORT}`));
 
