@@ -50,4 +50,42 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+userSchema
+  .virtual('password')
+  .set(function (password) {
+    // create tem variable called _password
+    this._password = password;
+
+    // gen salt
+    this.salt = this.makeSalt();
+
+    // encrypt password
+    this.hashed_password = this.encryptPassword(password);
+  })
+  .get(function () {
+    return this._password;
+  });
+
+userSchema.methods = {
+  authenticate: function (plainTextPassword) {
+    return this.encryptPassword(plainTextPassword) === this.hashed_password;
+  },
+
+  encryptPassword: function (password) {
+    if (!password) return '';
+    try {
+      return crypto
+        .createHmac('sha1', this.salt)
+        .update(password)
+        .digest('hex');
+    } catch (error) {
+      return '';
+    }
+  },
+
+  makeSalt: function () {
+    return Math.round(new Date().valueOf() * Math.random()) + '';
+  },
+};
+
 export default mongoose.model('User', userSchema);
