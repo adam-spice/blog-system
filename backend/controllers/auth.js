@@ -8,7 +8,7 @@ export const signup = (req, res) => {
 
   User.findOne({ email: email }).exec((err, user) => {
     if (user) {
-      return res.status(400).json({ err: 'Email is already in use' });
+      return res.status(400).json({ error: 'Email is already in use' });
     }
 
     let profile = `${CLIENT_URL}/profile${username}`;
@@ -20,9 +20,9 @@ export const signup = (req, res) => {
       profile,
       username: `@${username}`,
     });
-    newUser.save((err, success) => {
-      if (err) {
-        return res.status(400).json({ error: err });
+    newUser.save((error, success) => {
+      if (error) {
+        return res.status(400).json({ error });
       }
       return res.status(201).json({ message: 'Signup success, please login' });
     });

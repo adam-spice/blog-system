@@ -1,11 +1,13 @@
+import { Container } from 'reactstrap';
+import Footer from './Footer';
 import Header from './Header';
 
 const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      <main>{children}</main>
-      <p>footer </p>
+      <Container>{children}</Container>
+      <Footer />
     </>
   );
 };
